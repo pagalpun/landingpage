@@ -313,7 +313,7 @@ section {
 /* Development Roadmap Section */
 .roadmap {
   background: hsl(var(--background));
-  padding: 4rem 0;
+  padding: 3rem 0 2rem;
 }
 
 .timeline {
@@ -449,7 +449,7 @@ section {
 /* Waitlist Section */
 .waitlist {
   background: hsl(var(--background));
-  padding: 2rem 0 4rem;
+  padding: 1rem 0 3rem;
 }
 
 .waitlist-content {
@@ -461,7 +461,7 @@ section {
 
 .waitlist-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .waitlist-heading {
@@ -633,7 +633,7 @@ section {
 .footer {
   border-top: 1px solid hsl(var(--border) / 0.3);
   padding: 2rem 0;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .footer-bottom {
@@ -802,6 +802,176 @@ section {
 @media (prefers-contrast: high) {
   :root {
     --border: 0 0% 50%;
+  }
+}
+
+/* Thank You Page Styles */
+.thank-you-hero {
+  padding: 6rem 0 4rem;
+  background: hsl(var(--background));
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.thank-you-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 2rem;
+  color: hsl(var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--primary) / 0.1);
+  border-radius: 50%;
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.thank-you-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+.thank-you-message {
+  font-size: 1.5rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.position-highlight {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+}
+
+.thank-you-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.detail-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: left;
+}
+
+.detail-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: hsl(var(--foreground));
+}
+
+.detail-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-card li {
+  padding: 0.5rem 0;
+  color: hsl(var(--muted-foreground));
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.detail-card li::before {
+  content: '•';
+  color: hsl(var(--primary));
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.detail-card p {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.detail-card a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.detail-card a:hover {
+  text-decoration: underline;
+}
+
+.thank-you-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary));
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--primary) / 0.1);
+  transform: translateY(-1px);
+}
+
+/* Responsive Thank You Page */
+@media (max-width: 768px) {
+  .thank-you-hero {
+    padding: 4rem 0 3rem;
+  }
+  
+  .thank-you-message {
+    font-size: 1.25rem;
+  }
+  
+  .position-highlight {
+    font-size: 1.5rem;
+  }
+  
+  .thank-you-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .thank-you-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-secondary,
+  .btn-primary {
+    width: 100%;
+    max-width: 300px;
   }
 }
 

@@ -106,10 +106,10 @@ async function handleFormSubmission(e) {
             source: data.source
         });
         
-        // Show success message
-        showSuccessMessage(form);
+        // Redirect to thank you page
+        window.location.href = 'thank-you.html';
         
-        // Reset form
+        // Reset form (though user will be redirected)
         form.reset();
         
     } catch (error) {
