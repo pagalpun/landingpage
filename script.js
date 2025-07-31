@@ -7,6 +7,15 @@ inject();
 
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    // Track page view
+    trackEvent('page_view', {
+        page: 'landing',
+        referrer: document.referrer,
+        utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+        utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+        utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+    });
+
     // Handle navigation clicks
     const navLinks = document.querySelectorAll('a[href^="#"]');
     navLinks.forEach(link => {
@@ -437,10 +446,43 @@ function initializeHeaderScroll() {
     });
 }
 
-// Utility function to track events with Vercel Analytics
-function trackEvent(eventName, properties = {}) {
+// Generate or get session ID
+let sessionId = sessionStorage.getItem('socialsage_session_id');
+if (!sessionId) {
+    sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('socialsage_session_id', sessionId);
+}
+
+// Utility function to track events with Vercel Analytics and store in DB
+async function trackEvent(eventName, properties = {}) {
     // Track with Vercel Analytics
     track(eventName, properties);
+    
+    // Also store in our database
+    try {
+        await fetch('/api/analytics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                event_type: eventName,
+                page_url: window.location.href,
+                properties: {
+                    ...properties,
+                    timestamp: new Date().toISOString(),
+                    page_title: document.title,
+                    screen_resolution: `${screen.width}x${screen.height}`,
+                    viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+                    user_language: navigator.language,
+                    platform: navigator.platform
+                },
+                session_id: sessionId
+            })
+        });
+    } catch (error) {
+        console.error('Failed to store analytics event:', error);
+    }
     
     // Also log for debugging
     console.log('Event tracked:', eventName, properties);

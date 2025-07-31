@@ -583,6 +583,15 @@ section {
   margin-top: 0.25rem;
 }
 
+.form-privacy-note {
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-style: italic;
+  opacity: 0.8;
+}
+
 /* Free Access Callout */
 .free-access-callout {
   background: linear-gradient(135deg, hsl(263 70% 50% / 0.15), hsl(217 91% 60% / 0.1));
