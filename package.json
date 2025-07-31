@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "SocialSage Instagram Analytics Landing Page",
   "main": "index.html",
-  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "build": "echo 'Static site - no build needed'",
@@ -12,6 +11,9 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "@vercel/analytics": "^1.1.1"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [
     "instagram",

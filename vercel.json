@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/waitlist.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
@@ -21,12 +16,6 @@
           "value": "1; mode=block"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
     }
   ]
 }
