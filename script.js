@@ -86,9 +86,8 @@ async function handleFormSubmission(e) {
             source: 'landing-page'
         };
         
-        // In a real application, you would send this to your backend
-        // For now, we'll simulate the submission
-        await simulateApiCall(data);
+        // Submit to Supabase via API route
+        await submitToWaitlist(data);
         
         // Track successful form submission
         trackEvent('waitlist_signup_success', {
@@ -106,7 +105,22 @@ async function handleFormSubmission(e) {
         
     } catch (error) {
         console.error('Form submission error:', error);
-        showErrorMessage('Something went wrong. Please try again.');
+        
+        // Track failed submission
+        trackEvent('waitlist_signup_failed', {
+            error: error.message,
+            email: data.email,
+            source: data.source
+        });
+        
+        // Show specific error messages
+        if (error.message.includes('already registered')) {
+            showErrorMessage('This email is already on our waitlist! Check your inbox for updates.');
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+            showErrorMessage('Network error. Please check your connection and try again.');
+        } else {
+            showErrorMessage('Something went wrong. Please try again.');
+        }
     } finally {
         // Restore button state
         submitButton.disabled = false;
@@ -114,22 +128,23 @@ async function handleFormSubmission(e) {
     }
 }
 
-// Simulate API call (replace with actual API endpoint)
-function simulateApiCall(data) {
-    return new Promise((resolve, reject) => {
-        // Log data for demonstration
-        console.log('Waitlist submission:', data);
-        
-        // Simulate network delay
-        setTimeout(() => {
-            // Simulate 95% success rate
-            if (Math.random() < 0.95) {
-                resolve({ success: true, message: 'Successfully joined waitlist!' });
-            } else {
-                reject(new Error('Network error'));
-            }
-        }, 1500);
+// Submit data to Supabase via API route
+async function submitToWaitlist(data) {
+    const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
     });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit');
+    }
+
+    return result;
 }
 
 // Form validation

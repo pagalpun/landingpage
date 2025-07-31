@@ -1,0 +1,24 @@
+{
+  "name": "socialsage-landing",
+  "version": "1.0.0",
+  "description": "SocialSage Instagram Analytics Landing Page",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "@vercel/analytics": "^1.1.1"
+  },
+  "keywords": [
+    "instagram",
+    "analytics",
+    "landing-page",
+    "socialsage"
+  ],
+  "author": "SocialSage",
+  "license": "MIT"
+}
