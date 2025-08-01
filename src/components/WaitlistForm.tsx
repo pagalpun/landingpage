@@ -35,7 +35,7 @@ export default function WaitlistForm() {
         const utmCampaign = urlParams.get('utm_campaign')
 
         // Save to Supabase
-        const { data, error: supabaseError } = await supabase
+        const { error: supabaseError } = await supabase
           .from('waitlist_signups')
           .insert([
             {
@@ -52,7 +52,6 @@ export default function WaitlistForm() {
               priority_score: goals.length > 100 ? 5 : 3 // Higher score for detailed responses
             }
           ])
-          .select()
 
         if (supabaseError) {
           throw supabaseError
@@ -70,7 +69,7 @@ export default function WaitlistForm() {
         // Store position for thank you page
         localStorage.setItem('waitlist-position', position.toString())
 
-        console.log('Successfully saved to Supabase:', data)
+        console.log('Successfully saved to Supabase')
       } else {
         // Fallback for when Supabase is not configured (development/build)
         console.log('Supabase not configured, using fallback:', { email, cleanInstagram, goals })

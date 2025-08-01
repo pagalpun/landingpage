@@ -27,9 +27,16 @@ CREATE INDEX IF NOT EXISTS idx_waitlist_priority ON waitlist_signups(priority_sc
 -- Enable Row Level Security (RLS)
 ALTER TABLE waitlist_signups ENABLE ROW LEVEL SECURITY;
 
--- Create policy for insert (anyone can sign up)
-CREATE POLICY "Anyone can insert waitlist signup" 
+-- Create policy for insert (anonymous users can sign up)
+CREATE POLICY "Anonymous users can insert waitlist signup" 
 ON waitlist_signups FOR INSERT 
+TO anon
+WITH CHECK (true);
+
+-- Create policy for authenticated users to insert
+CREATE POLICY "Authenticated users can insert waitlist signup" 
+ON waitlist_signups FOR INSERT 
+TO authenticated
 WITH CHECK (true);
 
 -- Create policy for select (only service role can view all)
