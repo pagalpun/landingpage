@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS waitlist_signups (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   email text NOT NULL UNIQUE,
-  instagram_handle text NOT NULL,
+  instagram_handle text NOT NULL UNIQUE,
   goals text NOT NULL,
   source text DEFAULT 'landing-page',
   ip_address inet,

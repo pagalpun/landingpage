@@ -175,8 +175,8 @@ function validateForm(form) {
         isValid = false;
     }
     
-    if (!goals || goals.trim().length < 10) {
-        showFieldError('goals', 'Please provide more details about your goals (at least 10 characters)');
+    if (!goals || goals.trim().length === 0) {
+        showFieldError('goals', 'Please provide details about your goals');
         isValid = false;
     }
     

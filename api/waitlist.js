@@ -68,11 +68,24 @@ export default async function handler(req, res) {
     if (error) {
       console.error('Supabase error:', error);
       
-      // Handle unique constraint violation (duplicate email)
+      // Handle unique constraint violation (duplicate email or Instagram)
       if (error.code === '23505') {
-        return res.status(409).json({ 
-          error: 'Email already registered for waitlist' 
-        });
+        const isDuplicateEmail = error.message.includes('email');
+        const isDuplicateInstagram = error.message.includes('instagram_handle');
+        
+        if (isDuplicateEmail) {
+          return res.status(409).json({ 
+            error: 'Email already registered for waitlist' 
+          });
+        } else if (isDuplicateInstagram) {
+          return res.status(409).json({ 
+            error: 'Instagram handle already registered for waitlist' 
+          });
+        } else {
+          return res.status(409).json({ 
+            error: 'Already registered for waitlist' 
+          });
+        }
       }
       
       return res.status(500).json({ 
