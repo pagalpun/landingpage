@@ -24,6 +24,11 @@ export default function WaitlistForm() {
       const cleanInstagram = instagram.startsWith('@') ? instagram.slice(1) : instagram
 
       if (isSupabaseConfigured()) {
+        // Get current count BEFORE inserting new signup
+        const { count: currentCount } = await supabase
+          .from('waitlist_signups')
+          .select('*', { count: 'exact', head: true })
+
         // Get additional data for analytics
         const userAgent = navigator.userAgent
         const referrer = document.referrer || ''
@@ -57,14 +62,10 @@ export default function WaitlistForm() {
           throw supabaseError
         }
 
-        // Calculate waitlist position for display
-        const { count } = await supabase
-          .from('waitlist_signups')
-          .select('*', { count: 'exact', head: true })
-
-        const totalSignups = count || 0
+        // Calculate waitlist position for display (based on count before this signup)
+        const existingSignups = currentCount || 0
         const basePosition = 37
-        const position = basePosition + (totalSignups * 2)
+        const position = basePosition + ((existingSignups + 1) * 2)
         
         // Store position for thank you page
         localStorage.setItem('waitlist-position', position.toString())
@@ -139,7 +140,7 @@ export default function WaitlistForm() {
                 <p className="form-privacy-note">psst- no spam, no leaks, no bullsh*t. Just 2 emails over your entire lifetime.</p>
               </div>
               <div className="form-group">
-                <label htmlFor="instagram" className="form-label">Instagram Handle</label>
+                <label htmlFor="instagram" className="form-label">Instagram Username</label>
                 <input 
                   type="text" 
                   id="instagram" 
