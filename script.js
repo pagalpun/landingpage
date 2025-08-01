@@ -1,9 +1,5 @@
-// Import and initialize Vercel Analytics
-import { inject } from '@vercel/analytics';
-import { track } from '@vercel/analytics';
-
-// Initialize Vercel Analytics
-inject();
+// Vercel Analytics - load via CDN instead of ES6 imports
+// Will be loaded via script tag in HTML
 
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
@@ -455,8 +451,10 @@ if (!sessionId) {
 
 // Utility function to track events with Vercel Analytics and store in DB
 async function trackEvent(eventName, properties = {}) {
-    // Track with Vercel Analytics
-    track(eventName, properties);
+    // Track with Vercel Analytics (if available)
+    if (window.va) {
+        window.va('track', eventName, properties);
+    }
     
     // Also store in our database
     try {
