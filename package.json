@@ -2,14 +2,32 @@
   "name": "socialsage-landing",
   "version": "1.0.0",
   "description": "SocialSage Instagram Analytics Landing Page",
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
-    "dev": "vercel dev",
-    "start": "vercel dev"
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "next-sitemap",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
-    "@vercel/analytics": "^1.1.1"
+    "@vercel/analytics": "^1.1.1",
+    "next": "^14.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "gray-matter": "^4.0.3",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "next-sitemap": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": "22.x"
@@ -18,7 +36,9 @@
     "instagram",
     "analytics",
     "landing-page",
-    "socialsage"
+    "socialsage",
+    "blog",
+    "nextjs"
   ],
   "author": "SocialSage",
   "license": "MIT"
