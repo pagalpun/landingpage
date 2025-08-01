@@ -317,7 +317,7 @@ function showSuccessMessage(form) {
                 <strong>Welcome to the SocialSage waitlist!</strong>
             </div>
             <p style="margin: 0; font-size: 0.875rem;">
-                🎉 You'll receive an email confirmation shortly. Early users get 50% more tokens on their free plan!
+                🎉 You'll receive an email confirmation shortly. Early users get extra credits on their free plan!
             </p>
         </div>
     `;
